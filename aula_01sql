@@ -1,0 +1,122 @@
+set SERVEROUTPUT on;
+
+declare
+    v_1 varchar2(30);
+    v_2 v_1%type;
+begin
+    v_1 := 10;
+    v_2 := 555;
+dbms_output.put_line(v_1);
+dbms_output.put_line(v_2);
+
+end;
+
+/*Exercício 1:
+Criar um bloco PL-SQL para calcular o valor do novo salário mínimo que deverá ser de 25%
+em cima do atual, que é de R$?????.
+*/
+declare
+    sal_atual number;
+    novo_sal sal_atual%type;
+begin
+    sal_atual := 1414;
+    novo_sal := sal_atual*1.25;
+dbms_output.put_line(novo_sal);
+end;
+
+/*Exercício 2:
+Criar um bloco PL-SQL para calcular o valor em reais de 45 dólares, sendo que o valor do
+câmbio a ser considerado é de R$????.
+*/
+declare
+    val_reais number;
+    val_dolar val_reais%type;
+    novo_valor val_reais%type;
+begin
+    val_reais := 45;
+    val_dolar := 4.96;
+    novo_valor := val_reais*val_dolar;
+dbms_output.put_line('O valor em reais de '||val_reais||' em dolares é: ' ||novo_valor);
+end;
+
+/*Repetir o mesmo exercício de cima com input de usuário*/
+declare
+    val_reais number := &valor;
+    val_dolar val_reais%type;
+    novo_valor val_reais%type;
+begin
+    val_dolar := 4.96;
+    novo_valor := val_reais*val_dolar;
+dbms_output.put_line('O valor em reais de '||val_reais||' em dolares é: ' ||novo_valor);
+end;
+
+/*Exercício 3:
+Criar um bloco PL-SQL para calcular o valor das parcelas de uma compra de um carro, nas seguintes condições:
+OBSERVAÇÃO:
+ - Parcelas para aquisição em 10 pagamentos.
+ - O valor da compra deverá ser informado em tempo de execução.
+ - O valor total dos juros é de 3% e deverá ser aplicado sobre o montante financiado
+ - No final informar o valor de cada parcela.
+*/
+
+declare
+    val_compra number := &valor;
+    parcelas number := &financiado;
+    val_juros val_compra%type;
+    val_parcelas val_compra%type;
+    val_total val_compra%type;
+begin
+    val_juros := 1.03;
+    val_parcelas := val_compra*val_juros/parcelas;
+    val_total := val_compra*val_juros;
+dbms_output.put_line('Valor do carro R$: ' ||val_compra);
+dbms_output.put_line('Número de parcelas : ' ||parcelas);
+dbms_output.put_line('Valor de cada parcela R$: ' ||val_parcelas);
+dbms_output.put_line('Valor total R$: ' ||val_total);
+end;
+
+/*Exercício 4:
+Criar um bloco PL-SQL para calcular o valor de cada parcela de uma compra de um carro, nas seguintes condições: 
+- Parcelas para aquisição em 6 pagamentos. 
+- Parcelas para aquisição em 12 pagamentos. 
+- Parcelas para aquisição em 18 pagamentos. 
+OBSERVAÇÃO: 
+1 - Deverá ser dada uma entrada de 20% do valor da compra. 
+2 – Deverá ser aplicada uma taxa juros, no saldo restante, nas seguintes condições: 
+3 – No final informar o valor das parcelas para as 3 formas de pagamento, com o Valor de aquisição de 10.000 e o mesmo com entrada de dados via teclado (em tempo de execução).
+A – Pagamento em 6 parcelas: 10%. 
+B – Pagamento em 12 parcelas: 15%. 
+C – Pagamento em 18 parcelas: 20%.
+*/
+
+declare
+    val_compra number := &valor;
+    parcela01 number;
+    parcela02 parcela01%type;
+    parcela03 parcela01%type;
+    vl_entrada val_compra%type;
+    vl_restante val_compra%type;
+begin
+    vl_restante := val_compra*0.8;
+    vl_entrada := val_compra*0.2;
+    parcela01 := (vl_restante*1.10)/6;
+    parcela02 := (vl_restante*1.15)/12;
+    parcela03 := (vl_restante*1.20)/18;
+dbms_output.put_line('O valor total do carro R$: '||val_compra);
+dbms_output.put_line('O valor da entrada R$: '||vl_entrada);
+dbms_output.put_line('O valor de cada parcela feito em 6 vezes sai por R$: '||round(parcela01,2));
+dbms_output.put_line('O valor de cada parcela feito em 12 vezes sai por R$: '||round(parcela02,2));
+dbms_output.put_line('O valor de cada parcela feito em 18 vezes sai por R$: '||round(parcela03,2));
+end;
+
+/*Recursos da linguaguem
+Estrutura de Decisão
+If – then - elsif – then – else – end if
+IF <condição> THEN 
+	<instruções>;
+ELSIF <condição> THEN
+	<instruções>; 
+ELSE 
+	<instruções>;
+ END IF; 
+*/
